@@ -1,0 +1,16 @@
+@for(pedido of pedidos; track $index){
+<div class="order-info-card">
+
+  <div class="order-data">
+    <p><strong>Usuario:</strong> {{ pedido.usuario }}</p>
+    <p><strong>Total:</strong> ${{ pedido.total }}</p>
+    <p><strong>Estado:</strong> {{ pedido.estado }}</p>
+  </div>
+
+  <div class="order-actions">
+    <button (click)="eliminarPedido(pedido.id)" class="btn-delete-pedido">
+      Eliminar pedido
+    </button>
+  </div>
+</div>
+}

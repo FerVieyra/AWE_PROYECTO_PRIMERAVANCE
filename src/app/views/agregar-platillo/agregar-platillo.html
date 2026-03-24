@@ -1,0 +1,37 @@
+<app-header [nombreUsuario]="'administrador'"></app-header>
+
+<div class="add-container">
+  <div class="add-card">
+    <h2 class="form-title">Añadir Nuevo Platillo</h2>
+    
+    <form (ngSubmit)="guardarPlatillo()" class="add-form">
+      <div class="form-group">
+        <label>Nombre del Platillo</label>
+        <input type="text" name="nombre" placeholder="Ej. Pizza Margherita" required>
+      </div>
+
+      <div class="form-group">
+        <label>Descripción</label>
+        <textarea name="descripcion" rows="4" placeholder="Escribe una breve descripción del platillo..."></textarea>
+      </div>
+
+      <div class="form-group">
+        <label>Precio (MXN)</label>
+        <input type="number" name="precio" placeholder="0.00" required>
+      </div>
+
+      <div class="form-group">
+        <label>Subir Imagen del Platillo</label>
+        <div class="file-input-wrapper">
+          <input type="file" name="imagen" class="file-input">
+        </div>
+      </div>
+
+      <button type="submit" class="btn-save">Guardar platillo</button>
+      
+      <div class="cancel-link-container">
+        <a routerLink="/panel-admin" (click)="cancelar()" class="cancel-link">Cancelar y volver</a>
+      </div>
+    </form>
+  </div>
+</div>

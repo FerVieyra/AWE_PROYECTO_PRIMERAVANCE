@@ -1,0 +1,20 @@
+@for(platillo of platillos; track $index)
+{
+<div class="item-info-card">
+  <div class="item-header">
+    <img [src]="platillo.imagen" [alt]="platillo.nombre" class="circular-img">
+    <span class="item-details">
+      <strong>{{ platillo.nombre }}</strong> - ${{ platillo.precio }}
+    </span>
+  </div>
+
+  <div class="item-actions">
+    <button (click)="editarPlatillo(platillo.id)" class="btn-edit">
+      Editar
+    </button>
+    <button (click)="eliminarPlatillo(platillo.id)" class="btn-delete-item">
+      Eliminar
+    </button>
+  </div>
+</div>
+}

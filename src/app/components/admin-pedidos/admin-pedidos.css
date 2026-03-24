@@ -1,0 +1,31 @@
+.order-info-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  margin-bottom: 1rem;
+  padding: 1.2rem;
+  background-color: #ffffff;
+}
+
+.order-data p {
+  margin: 0.3rem 0;
+  color: #333;
+}
+
+.order-actions {
+  margin-top: 1rem;
+}
+
+.btn-delete-pedido {
+  background-color: #721c24;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.btn-delete-pedido:hover {
+  background-color: #721c24;
+}

@@ -1,0 +1,64 @@
+.admin-nav-info {
+  background-color: #721c24;
+  color: white;
+  text-align: center;
+  padding-bottom: 1rem;
+}
+
+.panel-subtitle { margin: 0; font-size: 0.9rem; }
+.back-link { color: white; text-decoration: none; font-weight: bold; font-size: 0.8rem; }
+
+.admin-container {
+  padding: 3rem;
+  background-color: #f8f8f8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+}
+
+.admin-section {
+  background: white;
+  width: 100%;
+  max-width: 950px;
+  padding: 2.5rem;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.title-centered {
+  text-align: center;
+  color: #721c24;
+  margin-bottom: 2rem;
+  font-size: 1.8rem;
+}
+
+.header-menu-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header-menu-section h2 {
+  color: #721c24;
+  margin: 0;
+  font-size: 1.8rem;
+}
+
+.btn-green-add {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.components-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}

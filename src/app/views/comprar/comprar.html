@@ -1,0 +1,54 @@
+<app-header [nombreUsuario]="usuarioPlaceholder"></app-header>
+
+<div class="checkout-container">
+  <!-- Resumen -->
+  <h2 class="section-title">Resumen del Pedido</h2>
+  <div class="summary-card">
+    <div class="summary-item">
+      @for(item of pedido; track $index)
+      {
+        <span>{{ item.nombre }} (x{{ item.cantidad }})</span>
+        <span>${{ item.precio }} MXN</span>
+      }
+    </div>
+    <hr>
+    <div class="summary-total">
+      <span>Total a Pagar:</span>
+      <span class="total-amount">${{ total }} MXN</span>
+    </div>
+  </div>
+
+  <!-- Formulario de Pago -->
+  <h2 class="section-title">Información de Pago</h2>
+  <div class="payment-card">
+    <form (ngSubmit)="confirmarCompra()" class="payment-form">
+      <div class="form-group">
+        <label>Nombre del titular</label>
+        <input type="text" name="titular" placeholder="Ej. Juan Pérez" required>
+      </div>
+
+      <div class="form-group">
+        <label>Número de tarjeta</label>
+        <input type="text" name="tarjeta" placeholder="XXXX XXXX XXXX XXXX" maxlength="16" required>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group flex-2">
+          <label>Fecha de expiración</label>
+          <input type="date" name="expiracion" required>
+        </div>
+        <div class="form-group flex-1">
+          <label>CVV</label>
+          <input type="text" name="cvv" placeholder="123" maxlength="3" required>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Dirección de envío</label>
+        <input type="text" name="direccion" placeholder="Calle, número, colonia..." required>
+      </div>
+
+      <button type="submit" class="btn-confirm">Confirmar Compra</button>
+    </form>
+  </div>
+</div>

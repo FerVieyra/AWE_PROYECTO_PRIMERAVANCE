@@ -1,0 +1,17 @@
+@for(reserva of reservas; track $index){
+<div class="reservation-info-card">
+
+  <div class="reserva-data">
+    <p><strong>Usuario:</strong> {{ reserva.usuario }}</p>
+    <p><strong>Fecha:</strong> {{ reserva.fecha }} a las {{ reserva.hora }}</p>
+    <p><strong>Personas:</strong> {{ reserva.personas }}</p>
+    <p><strong>Estado:</strong> {{ reserva.estado }}</p>
+  </div>
+
+  <div class="reserva-actions">
+    <button (click)="eliminarReserva(reserva.id)" class="btn-delete-reserva">
+      Eliminar reserva
+    </button>
+  </div>
+</div>
+}

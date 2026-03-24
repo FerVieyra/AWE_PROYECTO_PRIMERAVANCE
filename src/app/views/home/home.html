@@ -1,0 +1,28 @@
+<app-header [nombreUsuario]="usuarioPlaceholder"></app-header>
+
+<nav class="sub-navbar">
+  <button class="btn-detail">Menú detallado</button>
+  <div class="nav-links">
+    <a routerLink="/realizar-pedido" class="btn-link">Realizar pedido</a>
+    <a routerLink="/reservaciones" class="btn-link">Agendar reservación</a>
+  </div>
+</nav>
+
+<main class="content-container">
+  <div class="menu-grid">
+    @for(platillo of platillos; track $index)
+    {
+      <div class="card">
+      <div class="card-img-container">
+        <img [src]="platillo.imagen" [alt]="platillo.nombre">
+      </div>
+      <div class="card-body">
+        <h3>{{ platillo.nombre }}</h3>
+        <p class="description">{{ platillo.descripcion }}</p>
+        <p class="price">${{ platillo.precio }} MXN</p>
+      </div>
+    </div>
+    }
+    
+  </div>
+</main>

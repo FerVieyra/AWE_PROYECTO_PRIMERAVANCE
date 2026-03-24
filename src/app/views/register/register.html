@@ -1,0 +1,51 @@
+<app-header [nombreUsuario]="''"></app-header>
+
+<div class="main-container">
+  <div class="register-card">
+    <h2 class="title">Regístrate</h2>
+
+    <form (ngSubmit)="onRegistro()" #registroForm="ngForm" class="register-form">
+      <div class="form-group">
+        <label>Nombre(s)</label>
+        <input type="text" placeholder="Tu nombre" required>
+      </div>
+
+      <div class="form-group">
+        <label>Apellidos</label>
+        <input type="text" name="apellidos" placeholder="Tus apellidos" required>
+      </div>
+
+      <div class="form-group">
+        <label>Dirección</label>
+        <input type="text" name="direccion" placeholder="Tu dirección completa" required>
+      </div>
+
+      <div class="form-group">
+        <label>Correo electrónico</label>
+        <input type="email" name="correo" placeholder="ejemplo@correo.com" required>
+      </div>
+
+      <div class="form-group">
+        <label>Contraseña</label>
+        <input type="password" name="password" placeholder="************" minlength="12" required>
+        <small style="color: #721c24;">
+          @if(nuevoUsuario.password && nuevoUsuario.password.length < 12)
+          {
+            Mínimo 12 caractéres.
+          }
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label>Confirmar contraseña</label>
+        <input type="password" name="confirmarPassword" placeholder="************" required>
+      </div>
+
+      <button type="submit" class="btn-register">Crear cuenta</button>
+    </form>
+
+    <div class="footer-links">
+      <span>¿Ya tienes cuenta? <a routerLink="/login" class="login-link">Inicia sesión aquí</a></span>
+    </div>
+  </div>
+</div>

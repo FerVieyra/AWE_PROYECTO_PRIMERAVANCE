@@ -1,0 +1,33 @@
+<app-header [nombreUsuario]="usuario.nombreCompleto"></app-header>
+
+<div class="perfil-container">
+  <div class="perfil-card info-user">
+    <h2 class="user-name">{{ usuario.nombreCompleto }}</h2>
+    <p><strong>Correo:</strong> {{ usuario.correo }}</p>
+    <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>
+
+    <a routerLink="/panel-admin">Administrar items</a>
+    <p><br></p>
+    <a routerLink="/configurar-perfil">Configurar perfil</a>
+  </div>
+
+  <div class="perfil-card">
+    <h2 class="card-title">Reservaciones</h2>
+    <div class="empty-state">
+      @if(reservaciones.length == 0)
+      {
+        No tienes reservaciones aún.
+      }
+    </div>
+  </div>
+
+  <div class="perfil-card">
+    <h2 class="card-title">Historial de Pedidos</h2>
+    <div class="empty-state">
+      @if(pedidos.length == 0)
+      {
+        Aún no has hecho ningún pedido.
+      }
+    </div>
+  </div>
+</div>

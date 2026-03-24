@@ -1,0 +1,34 @@
+<app-header [nombreUsuario]="'fer'"></app-header>
+
+<div class="pedidos-container">
+  <h2 class="main-title">Realizar Pedido</h2>
+
+  <div class="menu-list">
+    @for(platillo of platillos; track $index)
+    {
+    <div class="pedido-card">
+      <div class="img-container">
+        <img [src]="platillo.imagen" [alt]="platillo.nombre">
+      </div>
+      
+      <div class="info-container">
+        <h3 class="platillo-name">{{ platillo.nombre }}</h3>
+        <p class="platillo-desc">{{ platillo.descripcion }}</p>
+        <p class="platillo-price"><strong>${{ platillo.precio }} MXN</strong></p>
+        
+        <div class="actions">
+          <label for="cant-{{platillo.id}}">Cantidad:</label>
+          <input 
+            type="number" 
+            id="cant-{{platillo.id}}" 
+            [(ngModel)]="platillo.cantidadSeleccionada" 
+            min="1" 
+            class="input-cantidad">
+          <button (click)="agregarAlCarrito(platillo)" class="btn-add">Añadir al carrito</button>
+        </div>
+      </div>
+    </div>
+  }
+  <a routerLink="/comprar">Proceder con la compra</a>
+  </div>
+</div>

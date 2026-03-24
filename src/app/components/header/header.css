@@ -1,0 +1,26 @@
+.main-header {
+  background-color: #721c24; /* Color vino tinto */
+  color: white;
+  padding: 1rem 2rem;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user-actions span {
+  margin-right: 15px;
+}
+
+.user-actions a {
+  color: white;
+  margin-left: 15px;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.user-actions a:hover {
+  text-decoration: underline;
+}
