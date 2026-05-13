@@ -1,22 +1,26 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Header } from '../../components/header/header';
 import { RouterLink } from "@angular/router";
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule, Header, RouterLink],
+  imports: [CommonModule,FormsModule, ReactiveFormsModule, Header, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.css'
 })
 export class Login{
-  credenciales = {
-    correo: '',
-    password: ''
-  };
+  authService = inject(AuthService);
+  fb = inject(FormBuilder);
+
+  loginForm = this.fb.group({
+    email: ['', [Validators.required, Validators.email]],
+    password: ['', Validators.required]
+  });
 
   onLogin() {
-    console.log('Intento de inicio de sesión:', this.credenciales);
+    this.authService.login(this.loginForm.value.email!, this.loginForm.value.password!);
   }
 }

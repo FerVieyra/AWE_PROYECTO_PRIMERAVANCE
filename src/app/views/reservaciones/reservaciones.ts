@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../components/header/header';
-import { RouterLink } from "@angular/router";
+import { ReserveService } from '../../services/reserve-service';
 
 @Component({
   selector: 'app-reservaciones',
-  imports: [CommonModule, FormsModule, Header, RouterLink],
+  imports: [CommonModule, FormsModule, Header],
   templateUrl: './reservaciones.html',
   styleUrl: './reservaciones.css',
 })
 export class Reservaciones {
+  private reserveService = inject(ReserveService);
+
   usuarioPlaceholder: string = 'fer';
   fechaMinima: string = '';
 
@@ -30,7 +32,7 @@ export class Reservaciones {
   }
   
   reserva = {
-    cantidadPersonas: null,
+    personas: null,
     fecha: '',
     hora: ''
   };
@@ -40,7 +42,6 @@ export class Reservaciones {
       alert('Las reservaciones deben hacerse con al menos 2 días de antelación.');
       return;
     }
-    console.log('Datos de la reserva:', this.reserva);
-    alert('Reserva solicitada correctamente');
+    this.reserveService.makeReservation(this.reserva.personas!, this.reserva.fecha, this.reserva.hora);
   }
 }

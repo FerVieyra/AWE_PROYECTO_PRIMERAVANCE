@@ -1,10 +1,31 @@
 <header class="main-header">
-  <div class="header-container">
-    <h1 class="brand-name">Cocina Italiana</h1>
-    <div class="user-actions">
-      <span>Hola, {{ nombreUsuario }}</span>
-      <a routerLink="/perfil">Mi Perfil</a>
-      <a routerLink="/login">Cerrar Sesión</a>
+  @if(typeHeader === 'extended')
+  {
+    <div class="header-container">
+      <h1 class="brand-name">Cocina Italiana</h1>
+      <div class="user-actions">
+        <span>Hola, {{ user() }}</span>
+      
+        @if(isLoggedIn())
+        {
+          <a routerLink="/perfil">Mi Perfil</a>
+          <a  (click)="onLogOut()">Cerrar Sesión</a>
+        }
+        @else
+        {
+          <a routerLink="/login">Iniciar Sesion</a>
+          <a routerLink="/register">Registrarse</a>
+        }
+      </div>
     </div>
-  </div>
+  }@else
+  {    
+    <div class="header-container-2">
+      <div class="user-actions-2">
+        <a routerLink="/home" class="back-link">← Volver al inicio</a>
+      </div>
+      
+        <h1 class="brand-name-2">Cocina Italiana</h1>
+    </div>
+  }
 </header>

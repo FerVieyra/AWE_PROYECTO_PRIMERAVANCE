@@ -1,13 +1,40 @@
 .main-header {
   background-color: #721c24; /* Color vino tinto */
   color: white;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1rem;
 }
 
 .header-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.header-container-2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.user-actions-2 {
+  position: absolute;
+
+  left: 0;
+}
+
+.user-actions-2 a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.user-actions-2 a:hover {
+  text-decoration: underline;
+}
+
+.brand-name-2 {
+  margin: 0;
 }
 
 .user-actions span {
@@ -24,3 +51,4 @@
 .user-actions a:hover {
   text-decoration: underline;
 }
+

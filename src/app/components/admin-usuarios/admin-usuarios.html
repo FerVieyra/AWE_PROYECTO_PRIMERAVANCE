@@ -1,14 +1,18 @@
 <div class="user-cards-container">
-  @for(usuario of usuarios; track $index){
+  @if(users()?.length == 0)
+  {
+    <h2>No hay usuarios</h2>
+  }
+  @for(usuario of users(); track $index){
   <div class="user-info-card">
       <div class="user-data">
-        <p><strong>Nombre:</strong> {{ usuario.nombre }}</p>
-        <p><strong>Correo:</strong> {{ usuario.correo }}</p>
+        <p><strong>Nombre:</strong> {{ usuario.nombre }}  {{usuario.apellidos}}</p>
+        <p><strong>Correo:</strong> {{ usuario.email }}</p>
         <p><strong>Rol actual:</strong> {{ usuario.rol }}</p>
       </div>
 
       <div class="user-actions">
-      <button (click)="cambiarRol(usuario)"
+      <button (click)="cambiarRol(usuario.email)"
         [className]="usuario.rol === 'cliente' ? 'btn-role-admin' : 'btn-role-client'">
         <span>
           @if(usuario.rol == 'cliente')
@@ -20,7 +24,7 @@
         </span>
       </button>
 
-      <button (click)="eliminarUsuario(usuario.id)" class="btn-delete">
+      <button (click)="eliminarUsuario(usuario.email)" class="btn-delete">
         Eliminar usuario
       </button>
     </div>

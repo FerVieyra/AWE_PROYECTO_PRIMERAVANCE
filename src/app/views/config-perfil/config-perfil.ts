@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../components/header/header';
 import { RouterLink } from "@angular/router";
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-config-perfil',
@@ -10,14 +11,21 @@ import { RouterLink } from "@angular/router";
   templateUrl: './config-perfil.html',
   styleUrl: './config-perfil.css',
 })
-export class ConfigPerfil {
+export class ConfigPerfil implements OnInit{
+  userService = inject(UserService);
+  usuario = this.userService.user;
   usuarioEdicion = {
-    nombres: 'Juan',
-    apellidos: 'Pérez García',
-    direccion: 'Calle Italia #45, Col. Roma',
-    correo: 'juanperez@example.com',
-    password: 'password12345'
+    nombre: '',
+    apellidos: '',
+    direccion: '',
+    correo: '',
+    password: ''
   };
+
+  ngOnInit(): void {
+    this.userService.getUser();
+  }
+
 
   guardarCambios() {
     if (this.usuarioEdicion.password.length < 12) {
@@ -25,7 +33,7 @@ export class ConfigPerfil {
       return;
     }
     
-    console.log('Información actualizada:', this.usuarioEdicion);
-    alert('Información guardada correctamente.');
+    this.userService.updateCurrUser(this.usuarioEdicion.nombre, this.usuarioEdicion.apellidos, this.usuarioEdicion.direccion,
+                                    this.usuarioEdicion.correo, this.usuarioEdicion.password)
   }
 }

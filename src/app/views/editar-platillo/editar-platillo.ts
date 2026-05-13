@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, computed, OnInit, signal} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../components/header/header';
-import { RouterLink } from "@angular/router";
+import { Router, ActivatedRoute } from "@angular/router";
+import { ProductoService } from '../../services/producto-service';
 
 @Component({
   selector: 'app-editar-platillo',
@@ -10,25 +11,38 @@ import { RouterLink } from "@angular/router";
     CommonModule,
     FormsModule,
     Header,
-    RouterLink
 ],
   templateUrl: './editar-platillo.html',
   styleUrl: './editar-platillo.css',
 })
-export class EditarPlatillo {
+export class EditarPlatillo implements OnInit{
+  prodServ = inject(ProductoService);
+  prod = computed(() => this.prodServ.editProd());
+  url = this.prodServ.URL_API;
+
+  route = inject(ActivatedRoute);
+  routerL = inject(Router);
   platillo = {
-    nombre: 'Lasagna',
-    descripcion: 'Una lasagna.',
-    precio: 514.23,
-    imagenUrl: 'assets/lasagna.jpg'
+    nombre: '',
+    descripcion: '',
+    precio: undefined,
+    imagenUrl: ''
   };
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id');
+
+    this.prodServ.fetchProducto(id);
+  }
 
   actualizarPlatillo() {
     console.log('Datos actualizados:', this.platillo);
-    alert('Platillo actualizado con éxito');
+    this.prodServ.updateProducto(this.platillo.nombre, this.platillo.descripcion, this.platillo.precio, this.platillo.imagenUrl);
+    this.routerL.navigate(['/panel-admin']);
   }
 
   cancelar() {
     console.log('Edición cancelada');
+    this.routerL.navigate(['/panel-admin']);
   }
 }

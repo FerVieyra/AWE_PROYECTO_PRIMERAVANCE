@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, inject, computed} from '@angular/core';
+import { CommonModule} from '@angular/common';
+import { User } from '../../interfaces/user.interface';
+import { UserService } from '../../services/user-service';
 
 @Component({
   selector: 'app-admin-usuarios',
@@ -8,19 +10,22 @@ import { CommonModule } from '@angular/common';
   styleUrl: './admin-usuarios.css',
 })
 export class AdminUsuarios {
-  usuarios = [
-    { id: 1, nombre: 'Ref aryeiv', correo: 'ref@gmail.com', rol: 'cliente' },
-    { id: 2, nombre: 'Constantino Vieyra', correo: 'constantino@correo.com', rol: 'admin' },
-    { id: 3, nombre: 'Juan Pérez', correo: 'juan@example.com', rol: 'cliente' }
-  ];
+  userServ = inject(UserService);
+  users = computed(() => this.userServ.users());
 
-  cambiarRol(usuario: any) {
-    usuario.rol = usuario.rol === 'cliente' ? 'admin' : 'cliente';
+  constructor(){
+    this.userServ.getAllUsers();
+
+  }
+
+  cambiarRol(usuarioEmail: string) {
+    this.userServ.changeRole(usuarioEmail);
     console.log(`Rol cambiado.`);
   }
 
-  eliminarUsuario(id: number) {
+  eliminarUsuario(email: string) {
     if(confirm('¿Estás seguro de que deseas eliminar a este usuario?')) {
+      this.userServ.deleteUser(email);
       console.log(`Usuario con ID eliminado`);
     }
   }

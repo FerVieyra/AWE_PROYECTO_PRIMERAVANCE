@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Header } from '../../components/header/header';
 import { RouterLink } from "@angular/router";
+import { ProductoService } from '../../services/producto-service';
 
 @Component({
   selector: 'app-home',
@@ -9,14 +10,13 @@ import { RouterLink } from "@angular/router";
   templateUrl: './home.html',
   styleUrl: './home.css',
 })
-export class Home {
-  usuarioPlaceholder: string = 'Fer';
+export class Home implements OnInit{
 
-  platillos = [
-    { nombre: 'Lasagna', descripcion: 'Una lasagna clásica con carne.', precio: 514.23, imagen: 'https://via.placeholder.com/150' },
-    { nombre: 'Pasta', descripcion: 'Un platillo de pasta con ingredientes italianos.', precio: 513.26, imagen: 'https://via.placeholder.com/150' },
-    { nombre: 'Platillo 3', descripcion: 'Es el tercer platillo.', precio: 14563.21, imagen: 'https://via.placeholder.com/150' },
-    { nombre: 'Otra pasta', descripcion: 'Pasta... pero diferente.', precio: 120.20, imagen: 'https://via.placeholder.com/150' },
-    { nombre: 'Platillo 5', descripcion: 'Una descripción breve.', precio: 560.23, imagen: 'https://via.placeholder.com/150' }
-  ];
+  prodService = inject(ProductoService);
+  productos = this.prodService.prods;
+  url = this.prodService.URL_API;
+
+  ngOnInit(): void {
+    this.prodService.fetchProductos();
+  }
 }

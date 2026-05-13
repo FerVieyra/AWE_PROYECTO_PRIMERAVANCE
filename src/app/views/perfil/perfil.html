@@ -1,33 +1,83 @@
-<app-header [nombreUsuario]="usuario.nombreCompleto"></app-header>
+<app-header></app-header>
 
 <div class="perfil-container">
   <div class="perfil-card info-user">
-    <h2 class="user-name">{{ usuario.nombreCompleto }}</h2>
-    <p><strong>Correo:</strong> {{ usuario.correo }}</p>
-    <p><strong>Dirección:</strong> {{ usuario.direccion }}</p>
+    <h2 class="user-name">{{ userInfo()?.nombre }} {{userInfo()?.apellidos}}</h2>
+    <p><strong>Correo:</strong> {{ userInfo()?.email }}</p>
+    <p><strong>Dirección:</strong> {{ userInfo()?.direccion }}</p>
 
+    @if(userInfo()?.rol === 'administrador')
+    {
     <a routerLink="/panel-admin">Administrar items</a>
     <p><br></p>
+    }
+    
     <a routerLink="/configurar-perfil">Configurar perfil</a>
   </div>
 
   <div class="perfil-card">
     <h2 class="card-title">Reservaciones</h2>
-    <div class="empty-state">
-      @if(reservaciones.length == 0)
+      @if(reserves().length == 0)
       {
-        No tienes reservaciones aún.
+        <div class="empty-state">
+          No tienes reservaciones aún.
+        </div>
+      }@else
+      {
+        @for(reserva of reserves(); track $index)
+        {
+          <div [className]="reserva.estado !== 'cancelada'?'reserve-card' : 'cancelada-opacidad'">
+            <span><strong>Fecha:</strong> {{ reserva.fecha }}</span>
+            <span><strong>Hora:</strong> {{ reserva.hora }}</span>
+            <span><strong>Personas:</strong> {{ reserva.numeroPersonas }}</span>
+
+            <span [style.color]="reserva.estado.toLowerCase() === 'cancelada' ? 'red' : 'inherit'">
+              <strong>Estado:</strong> {{ reserva.estado }}
+            </span>
+
+            @if(reserva.estado !== 'cancelada')
+            {
+              <button 
+                (click)="cancelarReserva(reserva._id)" 
+                class="btn-cancelar">
+                Cancelar
+            </button>
+            }
+          </div>
+        }
       }
-    </div>
   </div>
 
   <div class="perfil-card">
     <h2 class="card-title">Historial de Pedidos</h2>
-    <div class="empty-state">
-      @if(pedidos.length == 0)
+      @if(peds().length == 0)
       {
-        Aún no has hecho ningún pedido.
+        <div class="empty-state">
+          Aún no has hecho ningún pedido.
+        </div>
       }
-    </div>
+      @else
+      {
+        @for(pedido of peds(); track $index)
+        {
+          <div [className]="pedido.estado !== 'Cancelado'?'reserve-card' : 'cancelada-opacidad'">
+            <span><strong>Total:</strong> {{ pedido.total }}</span>
+            <span><strong>Direccion:</strong> {{ pedido.direccion }}</span>
+            
+            <span [style.color]="pedido.estado.toLowerCase() === 'cancelado' ? 'red' : 'inherit'">
+              <strong>Estado:</strong> {{ pedido.estado }}
+            </span>
+
+            @if(pedido.estado !== 'Cancelado')
+            {
+              <button 
+                (click)="cancelarPedido(pedido._id)" 
+                class="btn-cancelar">
+                Cancelar
+            </button>
+            }
+          </div>
+        }
+      }
   </div>
 </div>

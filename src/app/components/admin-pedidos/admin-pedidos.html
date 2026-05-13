@@ -1,16 +1,25 @@
-@for(pedido of pedidos; track $index){
+@for(pedido of peds(); track $index){
 <div class="order-info-card">
 
   <div class="order-data">
-    <p><strong>Usuario:</strong> {{ pedido.usuario }}</p>
+    <p><strong>Usuario:</strong> {{ pedido.emailUser }}</p>
     <p><strong>Total:</strong> ${{ pedido.total }}</p>
-    <p><strong>Estado:</strong> {{ pedido.estado }}</p>
+    <p><strong>Direccion:</strong> {{ pedido.direccion }}</p>
+    <p [style.color]="pedido.estado.toLowerCase() === 'cancelado' ? 'red' : 'inherit'">
+      <strong>Estado:</strong> {{ pedido.estado }}
+    </p>
   </div>
 
   <div class="order-actions">
-    <button (click)="eliminarPedido(pedido.id)" class="btn-delete-pedido">
+    <button (click)="eliminarPedido(pedido._id)" class="btn-delete-pedido">
       Eliminar pedido
     </button>
+    @if(pedido.estado !== 'Cancelado')
+    {
+      <button (click)="cancelarPedido(pedido._id)" class="btn-delete-pedido">
+        Cancelar pedido
+      </button>
+    }
   </div>
 </div>
 }

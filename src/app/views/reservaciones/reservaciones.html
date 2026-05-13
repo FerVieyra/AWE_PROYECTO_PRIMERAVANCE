@@ -1,28 +1,26 @@
-<app-header [nombreUsuario]="usuarioPlaceholder"></app-header>
-
-<div class="nav-back">
-  <a routerLink="" class="back-link">← Volver al inicio</a>
-</div>
+<app-header [typeHeader]="'short'"></app-header>
 
 <div class="main-container">
   <div class="reservation-card">
     <h2 class="title">Agendar Reservación</h2>
-    <p class="greeting">Hola, <strong>{{ usuarioPlaceholder }}</strong></p>
 
     <form (ngSubmit)="agendar()" class="reservation-form">
       <div class="form-group">
         <label>Cantidad de personas</label>
-        <input type="number" name="personas" placeholder="Ej. 4" required>
+        <input type="number" [(ngModel)]="reserva.personas" name="personas" placeholder="Ej. 4" required>
       </div>
 
       <div class="form-group">
         <label>Fecha</label>
-        <input type="date" name="fecha" required>
-      </div>
+        <input type="date" [(ngModel)]="reserva.fecha" name="fecha" [min]="fechaMinima" required>
+        @if (reserva.fecha && reserva.fecha < fechaMinima) {
+          <small style="color: red;">Mínimo 2 días de antelación requeridos.</small>
+        }
+</div>
 
       <div class="form-group">
         <label>Hora</label>
-        <input type="time" name="hora" required>
+        <input type="time" [(ngModel)]="reserva.hora" name="hora" required>
       </div>
 
       <button type="submit" class="btn-agendar">Agendar</button>

@@ -1,17 +1,16 @@
-<app-header [nombreUsuario]="''"></app-header> <div class="nav-back">
-  <a routerLink="" class="back-link">← Volver al inicio</a>
-</div>
+<app-header></app-header> 
 
 <div class="main-container">
   <div class="login-card">
     <h2 class="title">Inicio de Sesión</h2>
 
-    <form (ngSubmit)="onLogin()" class="login-form">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()" class="login-form">
       <div class="form-group">
         <label>Correo electrónico</label>
         <input 
           type="email" 
-          name="correo" 
+          formControlName="email" 
+          name="email" 
           placeholder="ejemplo@correo.com" 
           required>
       </div>
@@ -20,12 +19,13 @@
         <label>Contraseña</label>
         <input 
           type="password" 
+          formControlName="password" 
           name="password" 
           placeholder="********" 
           required>
       </div>
 
-      <button type="submit" class="btn-login" routerLink="/home">Iniciar Sesión</button>
+      <button type="submit" class="btn-login">{{'Iniciar Sesión'}}</button>
     </form>
 
     <div class="footer-links">

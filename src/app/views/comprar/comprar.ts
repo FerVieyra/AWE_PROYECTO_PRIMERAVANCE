@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../components/header/header';
+import { CarritoService } from '../../services/carrito-service';
+import { PedidosService } from '../../services/pedidos-service';
 
 @Component({
   selector: 'app-comprar',
@@ -10,13 +12,15 @@ import { Header } from '../../components/header/header';
   styleUrl: './comprar.css',
 })
 export class Comprar {
-  usuarioPlaceholder: string = 'fer';
+  carritoService = inject(CarritoService);
+  pedidoService = inject(PedidosService);
+  carrito = this.carritoService.obtenerCarrito();
 
   pedido = [
     { nombre: 'Platillo 5', cantidad: 1, precio: 560.23 }
   ];
 
-  total: number = 560.23;
+  total: number = this.carritoService.calcularTotal();
 
   pago = {
     titular: '',
@@ -27,7 +31,11 @@ export class Comprar {
   };
 
   confirmarCompra() {
-    console.log('Procesando pago para:', this.pago);
-    alert('¡Compra completada');
+    if(!this.pago.titular || !this.pago.tarjeta || !this.pago.expiracion || !this.pago.cvv || !this.pago.direccionEnvio)
+    {
+      alert("compra fallida: faltan datos");
+      return;
+    }
+    this.pedidoService.hacerPedido(this.total, this.pago.direccionEnvio);
   }
 }

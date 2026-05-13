@@ -1,14 +1,14 @@
-<app-header [nombreUsuario]="'fer'"></app-header>
+<app-header></app-header>
 
 <div class="pedidos-container">
   <h2 class="main-title">Realizar Pedido</h2>
 
   <div class="menu-list">
-    @for(platillo of platillos; track $index)
+    @for(platillo of productos(); track $index)
     {
     <div class="pedido-card">
       <div class="img-container">
-        <img [src]="platillo.imagen" [alt]="platillo.nombre">
+        <img [src]="url + platillo.imagen" [alt]="platillo.nombre">
       </div>
       
       <div class="info-container">
@@ -17,18 +17,26 @@
         <p class="platillo-price"><strong>${{ platillo.precio }} MXN</strong></p>
         
         <div class="actions">
-          <label for="cant-{{platillo.id}}">Cantidad:</label>
+          <label for="cant-{{platillo.nombre}}">Cantidad:</label>
+          
           <input 
             type="number" 
-            id="cant-{{platillo.id}}" 
-            [(ngModel)]="platillo.cantidadSeleccionada" 
+            id="cant-{{platillo.nombre}}" 
+            [(ngModel)]="cantidadProd[$index]"
             min="1" 
             class="input-cantidad">
-          <button (click)="agregarAlCarrito(platillo)" class="btn-add">Añadir al carrito</button>
+          <button (click)="agregarAlCarrito(platillo, $index)" class="btn-add">Añadir al carrito</button>
         </div>
       </div>
     </div>
-  }
-  <a routerLink="/comprar">Proceder con la compra</a>
+    }
+    <div class="next-cont">
+      <div class="item-count">
+        <p>Items en el carrito: {{getTotalItems()}}</p>
+      </div>
+      <a routerLink="/comprar" class="a-link">Proceder con la compra</a>
+    </div>
+    
+    
   </div>
 </div>

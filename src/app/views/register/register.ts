@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, inject, Injectable } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Header } from '../../components/header/header';
 import { RouterLink } from "@angular/router";
+import { AuthService } from '../../services/auth-service';
 
 @Component({
   selector: 'app-register',
@@ -11,6 +12,8 @@ import { RouterLink } from "@angular/router";
   styleUrl: './register.css',
 })
 export class Register {
+  authService = inject(AuthService);
+
   nuevoUsuario = {
     nombres: '',
     apellidos: '',
@@ -29,7 +32,13 @@ export class Register {
       alert('Las contraseñas no coinciden.');
       return;
     }
-    console.log('Datos de registro:', this.nuevoUsuario);
-    alert('Cuenta creada con éxito (Simulación)');
+    
+    this.authService.register(
+      this.nuevoUsuario.nombres!,
+      this.nuevoUsuario.apellidos!,
+      this.nuevoUsuario.direccion!,
+      this.nuevoUsuario.correo!,
+      this.nuevoUsuario.password!
+    );
   } 
 }

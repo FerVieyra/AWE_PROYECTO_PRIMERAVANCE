@@ -1,17 +1,27 @@
-@for(reserva of reservas; track $index){
+@for(reserva of resrv(); track $index){
 <div class="reservation-info-card">
 
   <div class="reserva-data">
-    <p><strong>Usuario:</strong> {{ reserva.usuario }}</p>
+    <p><strong>Usuario:</strong> {{ reserva.email }}</p>
     <p><strong>Fecha:</strong> {{ reserva.fecha }} a las {{ reserva.hora }}</p>
-    <p><strong>Personas:</strong> {{ reserva.personas }}</p>
-    <p><strong>Estado:</strong> {{ reserva.estado }}</p>
+    <p><strong>Personas:</strong> {{ reserva.numeroPersonas }}</p>
+    <p [style.color]="reserva.estado.toLowerCase() === 'cancelada' ? 'red' : 'inherit'">
+      <strong>Estado:</strong> {{ reserva.estado }}
+    </p>
   </div>
 
   <div class="reserva-actions">
-    <button (click)="eliminarReserva(reserva.id)" class="btn-delete-reserva">
+    
+    <button (click)="eliminarReserva(reserva._id)" class="btn-delete-reserva">
       Eliminar reserva
     </button>
+
+    @if(reserva.estado !== 'cancelada')
+    {
+    <button (click)="cancelarReserva(reserva._id)" class="btn-delete-reserva">
+      Cancelar reserva
+    </button>
+    }
   </div>
 </div>
 }

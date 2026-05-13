@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ProductoService } from '../../services/producto-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin-menu',
@@ -8,19 +10,24 @@ import { CommonModule } from '@angular/common';
   styleUrl: './admin-menu.css',
 })
 export class AdminMenu {
-  platillos = [
-    { id: 1, nombre: 'Lasagna', precio: 514.23, imagen: 'assets/lasagna.jpg' },
-    { id: 2, nombre: 'Pasta Carbonara', precio: 320.00, imagen: 'assets/pasta.jpg' },
-    { id: 3, nombre: 'Pizza Margherita', precio: 280.50, imagen: 'assets/lasagna.jpg' }
-  ];
+  prodServ = inject(ProductoService);
+  prods = computed(() => this.prodServ.prods());
+  url = this.prodServ.URL_API;
 
-  editarPlatillo(id: number) {
-    console.log(`Editando platillo`);
+  router = inject(Router);
+
+  constructor(){
+    this.prodServ.fetchProductos();
   }
 
-  eliminarPlatillo(id: number) {
+  editarPlatillo(id: any) {
+    console.log(`Editando platillo`);
+    this.router.navigate(['/editar-platillo', id])
+  }
+
+  eliminarPlatillo(id: any) {
     if(confirm('¿Estás seguro de eliminar este platillo del menú?')) {
-      this.platillos = this.platillos.filter(p => p.id !== id);
+      this.prodServ.deleteProducto(id);
       console.log(`Platillo eliminado`);
     }
   }

@@ -24,6 +24,7 @@
   cursor: pointer;
   font-weight: bold;
   text-decoration: underline;
+  margin-right: 10px;
 }
 
 .btn-delete-reserva:hover {
